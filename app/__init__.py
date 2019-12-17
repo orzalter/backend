@@ -14,7 +14,7 @@ def create_app(config_name):
     config[config_name].init_app(app)
     db.init_app(app)
 
-    from .views.blog import blog as blog_blueprint
+    from .main.blog import blog as blog_blueprint
     app.register_blueprint(blog_blueprint, url_prefix='/blog')
 
     return app
