@@ -7,7 +7,7 @@ class Config(object):
     # WTF
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'orzalter'
     # database
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
     # redis expiration time
     TOKEN_EXPIRATION = os.environ.get('TOKEN_EXPIRATION') or 3600
 

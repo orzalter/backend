@@ -115,20 +115,21 @@ class BlogPost(Resource):
         try:
             db.session.add(blogpost)
             db.session.commit()
-            data = dict(id=args['title'])
+            data = dict()
+            data['post'] = dict(title=args['title'])
         except:
             return Format.error(message='Add post error')
 
         return Format.success(data=data)
 
     def delete(self):
-        """删除指定文章
+        """删除文章
 
         Params:
             id (:obj:`int`): 文章id
         """
         self.parser.add_argument(
-            'id', location='args', type=int, required=True, help='articleId')
+            'id', location='args', type=int, required=True, help='id')
         args = self.parser.parse_args()
 
         post = Post.query.filter_by(id=args['id']).first()
@@ -142,5 +143,6 @@ class BlogPost(Resource):
         except SQLAlchemyError:
             db.session.rollback()
             return Format.error(message='Delete post fail')
-
-        return Format.success()
+        data = dict()
+        data['post'] = dict(title=post.title)
+        return Format.success(data=data)
