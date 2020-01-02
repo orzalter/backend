@@ -10,13 +10,16 @@ from sqlalchemy.sql import func
 from app import db
 from app.api.format import Format
 from app.models import *
+from app.auth.authentications import auth
 
 from . import blog, resource
 
 
 @resource.resource('/user')
 class BlogUser(Resource):
-    """单篇文章操作"""
+    """用户操作"""
+
+    decorators = [auth.login_required]
 
     def __init__(self):
         self.parser = RequestParser()
@@ -45,7 +48,10 @@ class BlogUser(Resource):
             return Format.error(message='User (id) not exists', code=404)
 
         # 角色名称
-        role_name = user.roles.name
+        try:
+            role_name = user.roles.name
+        except:
+            role_name = None
 
         data['user'] = dict(
             id=user.id,
