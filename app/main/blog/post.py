@@ -11,7 +11,7 @@ from app import db
 from app.api.format import Format
 from app.models import *
 
-from . import blog, resource
+from . import resource
 
 
 @resource.resource('/post')
