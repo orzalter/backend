@@ -25,6 +25,9 @@ def create_app(config_name):
     from .main.tools import tools as tools_blueprint
     app.register_blueprint(tools_blueprint, url_prefix='/tools')
 
+    from .main.notes import notes as notes_blueprint
+    app.register_blueprint(notes_blueprint, url_prefix='/notes')
+
     from .main.blog import blog as blog_blueprint
     app.register_blueprint(blog_blueprint)
 

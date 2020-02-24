@@ -8,11 +8,12 @@ from .. import db
 
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'TB_USERS'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(128))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('TB_ROLES.id'))
+    posts = db.relationship('Post', backref='TB_USERS', lazy='dynamic')
 
     @property
     def password(self):
